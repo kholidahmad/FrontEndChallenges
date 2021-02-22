@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xl-8 col-sm-12 m-auto">
+      <h1 class="text-center mt-5 mb-3">
+        <strong
+          ><i class="fab fa-spotify text-success mr-2"></i> SPOTIKU</strong
+        >
+      </h1>
+      <h5 class="text-center">Always Listening, Always understanding</h5>
+      <button
+        class="btn btn-block mt-5 mb-3"
+        style="background-color: rgb(0, 170, 0)"
+        data-toggle="modal"
+        data-backdrop="static"
+        data-keyboard="false"
+        data-target="#playlistModal"
+        (click)="clickAdd()"
+      >
+        <strong class="text-white"
+          ><i class="fas fa-plus-circle mr-2 text-white"></i> New
+          Playlist</strong
+        >
+      </button>
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-8 col-sm-12 m-auto">
+      <div class="card mb-3" *ngFor="let play of playlist; let i = index">
+        <div class="card-body">
+          <strong class="card-title" style="font-size: larger">{{
+            play.name
+          }}</strong
+          ><br />
+          <small class="card-subtitle mb-2 text-muted"
+            >total {{ play.totalSongs }} songs,
+            {{ play.totalDuration }} minutes</small
+          >
+          <p class="card-text mt-3">{{ play.description }}</p>
+          <hr />
+          <div class="row mb-3" *ngFor="let song of play.songs">
+            <div class="col-1">
+              <div>
+                <i class="fas fa-play-circle ml-3 mr-2 mt-2"></i>
+              </div>
+            </div>
+            <div class="col-11">
+              <div>
+                {{ song.title }} <br />
+                <small> {{ song.artist }} . {{ song.duration }} minutes</small>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <a
+            type="button"
+            class="card-link text-danger mr-3"
+            (click)="clickDelete(i)"
+          >
+            DELETE</a
+          >
+          <a
+            type="button"
+            data-toggle="modal"
+            data-backdrop="static"
+            data-keyboard="false"
+            data-target="#playlistModal"
+            class="card-link text-warning"
+            (click)="clickEdit(i)"
+            >EDIT</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="playlistModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 20px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ modalTilte }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="clickClose()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-edit [playEdit]="playEdit" *ngIf="editMode"></app-edit>
+      </div>
+    </div>
+  </div>
+</div>

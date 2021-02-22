@@ -1,0 +1,88 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col">
+      <div class="p-4">
+        <h1>Hello Adventurer, welcome to the town of Angular!</h1>
+        <br />
+        <p>
+          Here you can explore all the exciting stuff like meeting weird
+          monster, learning new spell, and discovering rare item. But first, you
+          need some weapon/spell to accompany you along the way! I will give you
+          1000 gold, so choose your weapon/spell wisely~
+        </p>
+        <hr />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-7 col-sm-12">
+      <div class="card m-4" *ngFor="let weapon of weapons; let i = index">
+        <img
+          [src]="weapon.image"
+          class="card-img-top"
+          alt="{{ weapon.name }}"
+        />
+        <div class="card-body">
+          <h3 class="card-title">{{ weapon.name }}</h3>
+          <b class="text-muted">Price: {{ weapon.price }} </b>
+          <div class="row p-3">
+            <p class="card-text">
+              {{ weapon.desc }}
+            </p>
+          </div>
+          <a
+            class="btn d-flex justify-content-center p-2 mt-2"
+            (click)="onSelected(i)"
+            *ngIf="weapon.addedToCart == false"
+          >
+            <i class="fas fa-cart-arrow-down text-primary mr-2"></i>
+            <b> Add to chart</b>
+          </a>
+          <a
+            class="btn d-flex justify-content-center p-2 mt-2"
+            (click)="onDiscard(i)"
+            *ngIf="weapon.addedToCart == true"
+          >
+            <i class="fas fa-check text-primary mr-2"></i>
+            <b> Added to chart</b>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-sm-12">
+      <div style="position: relative">
+        <h1>Added to chart</h1>
+        <table
+          class="table table-borderless"
+          *ngFor="let slctd of weapons | filter: 'addedToCart'"
+        >
+          <tr>
+            <td>
+              <h5>{{ slctd.name }}</h5>
+            </td>
+            <td>
+              <b class="float-right">{{ slctd.price }}</b>
+            </td>
+          </tr>
+        </table>
+        <hr />
+        <table class="table table-borderless">
+          <tr>
+            <td>
+              <h4>Total:</h4>
+            </td>
+            <td>
+              <b class="float-right">{{ price }} </b>
+            </td>
+          </tr>
+        </table>
+
+        <div class="row">
+          <button class="btn btn-primary btn-block mt-3" (click)="onBuy()">
+            BUY
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

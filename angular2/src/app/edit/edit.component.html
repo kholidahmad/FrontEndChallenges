@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form [formGroup]="playlistForm" (ngSubmit)="onSave()">
+        <div class="form-group">
+          <label for="name"><b class="text-muted"> Playlist Name</b></label>
+          <input type="text" formControlName="name" class="form-control mb-3" />
+          <label for="description"
+            ><b class="text-muted"> Description</b></label
+          >
+          <input
+            type="text"
+            formControlName="description"
+            class="form-control mb-3"
+          />
+
+          <div class="row">
+            <div class="col-xl-12" formArrayName="songs">
+              <label class="mt-3"><b class="text-muted"> Song List </b> </label>
+              <div
+                class="row"
+                *ngFor="let songCtrl of songsControls; let i = index"
+                [formGroupName]="i"
+                style="margin-top: 10px"
+              >
+                <div class="col-xl-3">
+                  <label for="title">Song Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="title"
+                  />
+                </div>
+                <div class="col-xl-3">
+                  <label for="artist">Artist</label>
+                  <input
+                    type="text"
+                    formControlName="artist"
+                    class="form-control mb-3"
+                  />
+                </div>
+                <div class="col-xl-3">
+                  <label for="duration">Duration</label>
+                  <input
+                    type="number"
+                    formControlName="duration"
+                    class="form-control mb-3"
+                    placeholder="minutes"
+                  />
+                </div>
+                <div class="col-xl-3 d-flex justify-content-center">
+                  <span class="mt-3"></span>
+                  <span type="button" class="mt-4" (click)="onDeleteSong(i)">
+                    <i class="fas fa-times-circle text-danger"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 d-flex justify-content-end">
+                  <button
+                    type="button"
+                    class="btn"
+                    (click)="onAddSong()"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="add new song"
+                  >
+                    <i class="fas fa-plus-circle text-success"></i>
+                  </button>
+                </div>
+              </div>
+              <br />
+              <div class="modal-footer">
+                <div class="col-xl-12 d-flex justify-content-center mt-4">
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    (click)="clickClose()"
+                    class="btn btn-outline-secondary mr-2"
+                  >
+                    close
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-success pl-5 pr-5"
+                    [disabled]="!playlistForm.valid"
+                  >
+                    <i class="fas fa-save mr-2"></i>Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
